@@ -63,8 +63,8 @@ i = 0;
 while ((pts[i++] = line[k++]) != '\n');
     pts[i-1] = '\0';
 
-printf("%4d %10s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
-fprintf(output, "%4d %10s %30s %20s %20s %1c %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
+printf("%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
+fprintf(output, "%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
 N++;
 fgets(line, 99, input);
 }
