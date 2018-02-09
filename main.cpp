@@ -21,11 +21,11 @@ if (output == nullptr){
   }
 cout << "Input and output files opened properly\n\n";
 
-char line[100];
+char line[120];
 char date[11], name[30], team[20], opp[20], home_away, three[3], reb[3], ass[3], stl[3], pts[3];
 int N = 0, i, j;
 
-fgets(line, 99, input);
+fgets(line, 119, input);
 while (!feof(input)){
 int i = 0, k = 0, j;
 
@@ -64,9 +64,9 @@ while ((pts[i++] = line[k++]) != '\n');
     pts[i-1] = '\0';
 
 printf("%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
-fprintf(output, "%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
+fprintf(output, "%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
 N++;
-fgets(line, 99, input);
+fgets(line, 119, input);
 }
 
 cout << "\nData has been read and printed\n";
