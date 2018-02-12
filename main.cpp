@@ -4,76 +4,67 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
 
-FILE *input;
-FILE *output;
+    FILE *input;
+    FILE *output;
 
-input = fopen("NBA.csv", "r");
-   if (input == nullptr){
-     cout << "Could not open file" << endl;
-     return -1;
-  }
-output = fopen("nba_db", "wb");
-if (output == nullptr){
-     cout << "Could not create output file" << endl;
-     return -1;
-  }
-cout << "Input and output files opened properly\n\n";
+    input = fopen("csv_data.csv", "r");
+    if (input == nullptr)
+    {
+        cout << "Could not open file" << endl;
+        return -1;
+    }
+    output = fopen("formatted_data.txt", "w");
+    if (output == nullptr)
+    {
+        cout << "Could not create output file" << endl;
+        return -1;
+    }
+    cout << "Input and output files opened properly\n\n";
 
-char line[120];
-char date[11], name[30], team[20], opp[20], home_away, three[3], reb[3], ass[3], stl[3], pts[3];
-int N = 0, i, j;
+    char line[100], out_line[100];
+    char ind[6], cname[30], grp[4], mrk[10];
 
-fgets(line, 119, input);
-while (!feof(input)){
-int i = 0, k = 0, j;
+    fgets(line, 99, input);
+    while (!feof(input))
+    {
+        int i = 0, k = 0, j;
 
-while ((date[i++] = line[k++]) != ',');
-    date[i-1] = '\0';
-i=0;
-while ((name[i++] = line[k++])!= ',');
-    for (j = i-1; j<29; j++)
-        name[j] = ' ';
-    name[j] ='\0';
-i = 0;
-while ((team[i++] = line[k++]) != ',');
-    for (j = i-1; j<19; j++)
-        team[j] = ' ';
-    team[j] = '\0';
-i = 0;
-while ((opp[i++] = line[k++]) != ',');
-    for (j = i-1; j<19; j++)
-        opp[j] = ' ';
-    opp[j] = '\0';
-i = 0;
-home_away = line[k++];k++;
-while ((three[i++] = line[k++]) != ',');
-    three[i-1] = '\0';
-i = 0;
-while ((reb[i++] = line[k++]) != ',');
-    reb[i-1] = '\0';
-i = 0;
-while ((ass[i++] = line[k++]) != ',');
-    ass[i-1] = '\0';
-i = 0;
-while ((stl[i++] = line[k++]) != ',');
-    stl[i-1] = '\0';
-i = 0;
-while ((pts[i++] = line[k++]) != '\n');
-    pts[i-1] = '\0';
+        while ((ind[i++] = line[k++]) != ',');
+            ind[i-1] = '\0';
+        i=0;
+        while ((cname[i++] = line[k++])!= ',');
+        for (j = i-1; j<29; j++)
+            cname[j] = ' ';
+            cname[29] ='\0';
+        i = 0;
+        while ((grp[i++] = line[k++]) != ',');
+              grp[i-1] = '\0';
+        i = 0;
+        while ((mrk[i++] = line[k++]) != '\0');
+            mrk[i-1] = '\0';
 
-printf("%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
-fprintf(output, "%4d %11s %30s %20s %20s %1c %3s %3s %3s %3s %3s\n", N, date, name, team, opp, home_away, three, reb, ass, stl, pts);
-N++;
-fgets(line, 119, input);
-}
+        int index, groupId;
+        char name[30];
+        float score;
+        sscanf(ind, "%d", &index);
+        sscanf(cname, "%s", name);
+        sscanf(grp, "%d", &groupId);
+        sscanf(mrk, "%f", &score);
 
-cout << "\nData has been read and printed\n";
-cout << "and database file created.\n";
+        sprintf(out_line, "%5d %30s %3d %5.2f\n", index, name, groupId, score);
+        fputs(out_line, output);
+        printf("%s", out_line);
+        fgets(line, 99, input); //next iteration
+    }
 
-fclose(input);
-fclose(output);
+    cout << "\nData has been read and printed\n";
+    cout << "and txt database file created.\n";
 
-return 0;
+    fclose(input);
+    fclose(output);
+
+    return 0;
 }
